@@ -1,6 +1,6 @@
 import express from "express"
 import bodyParser from "body-parser"
-import mongoose from "mongoose"
+import {PrismaClient} from "@prisma/client"
 import cors from "cors"
 import dotenv from "dotenv"
 import multer from "multer"
@@ -8,6 +8,8 @@ import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
 import {fileURLToPath} from "url"
+
+import {register} from "./controllers/auth.js"
 
 // Configurations
 const __fileName = fileURLToPath(import.meta.url)
@@ -38,18 +40,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-// Mongoose setup
-async function start() {
-    try {
-        const mongoURL: any = process.env.MONGO_URL
-        await mongoose.connect(mongoURL)
-    
-        app.listen(port, () => {
-            console.log(`> Server running on port: ${port}`)
-        })
-    } catch (erorr) {
-        console.log(erorr)
-    }
-}
+// Routes with files
+app.post("/auth/register", upload.single("picture"), register)
 
-start()
+// Server Startup
+app.listen(port, () => {
+    console.log(`> Server running on port: ${port}`)
+})
