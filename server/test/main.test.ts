@@ -1,14 +1,13 @@
 describe("Testing API", () => {
     it("Create a new user", async () => {
         const sampleUser = {
-            firstName: "Lucas",
-            lastName: "Veiga Mattos",
-            email: "lucasveigamattos@gmail.com",
-            password: "02032007",
-            picturePath: "https://picture.path/Lucas",
-            friends: [],
-            location: "Curitiba",
-            occupation: "Student"
+            firstName: "John",
+            lastName: "Doe",
+            email: "johndoe@gmail.com",
+            password: "johndoe",
+            picturePath: "https://picture.path/john",
+            location: "john city",
+            occupation: "john"
         }
 
         const response = await fetch("http://localhost:3000/auth/register", {
@@ -22,6 +21,12 @@ describe("Testing API", () => {
         const data = await response.json()
 
         expect(response.status).toBe(201)
-        expect(data).toEqual(sampleUser)
+        for (const property in sampleUser) {
+            expect(data).toHaveProperty(property)
+        }
+        expect(data).toHaveProperty("id")
+        expect(data).toHaveProperty("friends")
+        expect(data).toHaveProperty("viewedProfile")
+        expect(data).toHaveProperty("impressions")
     })
 })

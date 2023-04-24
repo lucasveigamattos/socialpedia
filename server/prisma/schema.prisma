@@ -17,7 +17,7 @@ model User {
   friends       Json[]
   email         String
   password      String
-  pictruePath   String
+  picturePath   String
   location      String
   occupation    String
   viewedProfile Int
