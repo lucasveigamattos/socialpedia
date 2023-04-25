@@ -1,10 +1,11 @@
+import {Request, Response} from "express"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import {PrismaClient} from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-async function register(request: any, response: any) {
+async function register(request: Request, response: Response) {
     try {
         const {firstName, lastName, email, password, picturePath, location, occupation} = request.body
 
@@ -40,7 +41,7 @@ async function register(request: any, response: any) {
     }
 }
 
-async function login(request: any, response: any) {
+async function login(request: Request, response: Response) {
     try {
         const {email, password} = request.body
 
