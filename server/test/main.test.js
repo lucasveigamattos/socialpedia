@@ -83,7 +83,7 @@ describe("Testing API", () => {
         occupation: "john",
     }
 
-    let sampleUser1Token = ""
+    let sampleUser1Token
 
     const sampleUser2 = {
         id: "",
@@ -96,6 +96,8 @@ describe("Testing API", () => {
         occupation: "jane"
     }
 
+    let sampleUser2Token
+
     const sampleUser3 = {
         id: "",
         firstName: "Sample3",
@@ -107,6 +109,8 @@ describe("Testing API", () => {
         occupation: "sample"
     }
 
+    let sampleUser3Token
+
     const sampleUser4 = {
         id: "",
         firstName: "Sample4",
@@ -117,6 +121,8 @@ describe("Testing API", () => {
         location: "sample's city",
         occupation: "sample"
     }
+
+    let sampleUser4Token
 
     it("Create a new user with hashed password", async () => {
         const {response, data} = await createUser(sampleUser1)
@@ -207,9 +213,15 @@ describe("Testing API", () => {
         const sampleUser2Account = await createUser(sampleUser2)
         const sampleUser3Account = await createUser(sampleUser3)
         const sampleUser4Account = await createUser(sampleUser4)
+
         sampleUser2.id = sampleUser2Account.data.id
+        sampleUser2Token = (await getToken(sampleUser2)).data.token
+
         sampleUser3.id = sampleUser3Account.data.id
+        sampleUser3Token = (await getToken(sampleUser3)).data.token
+
         sampleUser4.id = sampleUser4Account.data.id
+        sampleUser4Token = (await getToken(sampleUser4)).data.token
 
         let response = await fetch(`${API_URL}/users/${sampleUser1.id}/${sampleUser2.id}/addFriend`, {
             method: "PATCH",
@@ -267,32 +279,28 @@ describe("Testing API", () => {
         expect(deleteUserRequest.response.status).toBe(200)
         expect(deleteUserRequest.data.message).toBe("User deleted with success.")
 
-        deleteUserRequest = await deleteUser(sampleUser2, sampleUser1Token)
+        deleteUserRequest = await deleteUser(sampleUser2, sampleUser2Token)
         expect(deleteUserRequest.response.status).toBe(200)
         expect(deleteUserRequest.data.message).toBe("User deleted with success.")
 
-        deleteUserRequest = await deleteUser(sampleUser3, sampleUser1Token)
+        deleteUserRequest = await deleteUser(sampleUser3, sampleUser3Token)
         expect(deleteUserRequest.response.status).toBe(200)
         expect(deleteUserRequest.data.message).toBe("User deleted with success.")
 
-        deleteUserRequest = await deleteUser(sampleUser4, sampleUser1Token)
+        deleteUserRequest = await deleteUser(sampleUser4, sampleUser4Token)
         expect(deleteUserRequest.response.status).toBe(200)
         expect(deleteUserRequest.data.message).toBe("User deleted with success.")
 
         let getUserRequest = await getUser(sampleUser1, sampleUser1Token)
         expect(getUserRequest.response.status).toBe(403)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
 
-        getUserRequest = await getUser(sampleUser2, sampleUser1Token)
+        getUserRequest = await getUser(sampleUser2, sampleUser2Token)
         expect(getUserRequest.response.status).toBe(403)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
 
-        getUserRequest = await getUser(sampleUser3, sampleUser1Token)
+        getUserRequest = await getUser(sampleUser3, sampleUser3Token)
         expect(getUserRequest.response.status).toBe(403)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
 
-        getUserRequest = await getUser(sampleUser4, sampleUser1Token)
+        getUserRequest = await getUser(sampleUser4, sampleUser4Token)
         expect(getUserRequest.response.status).toBe(403)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
     })
 })
