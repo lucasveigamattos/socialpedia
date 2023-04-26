@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 async function getUser(request: Request, response: Response) {
     try {
-        const user = await prisma.user.findUniqueOrThrow({
+        const user = await prisma.user.findUnique({
             where: {
                 id: request.params.id
             },
@@ -19,6 +19,8 @@ async function getUser(request: Request, response: Response) {
                 impressions: true
             }
         })
+
+        if (!user) return response.status(403).json({error: "User doesn't exists."})
 
         response.status(200).json(user)
     } catch (error) {
@@ -38,6 +40,20 @@ async function getUserFriends(request: Request, response: Response) {
         })
 
         response.status(200).json(userFriends)
+    } catch (error) {
+        console.error({error})
+    }
+}
+
+async function deleteUser(request: Request, response: Response) {
+    try {
+        const deletedUser = await prisma.user.delete({
+            where: {
+                id: request.params.id
+            }
+        })
+
+        response.status(200).json({deletedUser, message: "User deleted with success."})
     } catch (error) {
         console.error({error})
     }
@@ -120,6 +136,7 @@ async function removeFriend(request: Request, response: Response) {
 export {
     getUser,
     getUserFriends,
+    deleteUser,
     addFriend,
     removeFriend
 }

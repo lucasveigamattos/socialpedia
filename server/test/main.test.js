@@ -41,6 +41,37 @@ describe("Testing API", () => {
         }
     }
 
+    async function getUser(userData, userToken) {
+        const response = await fetch(`${API_URL}/users/${userData.id}`, {
+            headers: {
+                Authorization: userToken
+            }
+        })
+
+        const data = await response.json()
+
+        return {
+            response,
+            data
+        }
+    }
+
+    async function deleteUser(userData, userToken) {
+        const response = await fetch(`${API_URL}/users/${userData.id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: userToken
+            }
+        })
+
+        const data = await response.json()
+
+        return {
+            response,
+            data
+        }
+    }
+
     const sampleUser1 = {
         id: "",
         firstName: "John",
@@ -159,13 +190,7 @@ describe("Testing API", () => {
     })
 
     it("Get a user", async () => {
-        const response = await fetch(`${API_URL}/users/${sampleUser1.id}`, {
-            headers: {
-                Authorization: sampleUser1Token
-            }
-        })
-
-        const data = await response.json()
+        const {response, data} = await getUser(sampleUser1, sampleUser1Token)
 
         expect(response.status).toBe(200)
         expect(data).toHaveProperty("id")
@@ -235,5 +260,39 @@ describe("Testing API", () => {
         })
 
         expect(response.status).toBe(200)
+    })
+
+    it("Delete a user", async () => {
+        let deleteUserRequest = await deleteUser(sampleUser1, sampleUser1Token)
+        expect(deleteUserRequest.response.status).toBe(200)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+
+        deleteUserRequest = await deleteUser(sampleUser2, sampleUser1Token)
+        expect(deleteUserRequest.response.status).toBe(200)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+
+        deleteUserRequest = await deleteUser(sampleUser3, sampleUser1Token)
+        expect(deleteUserRequest.response.status).toBe(200)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+
+        deleteUserRequest = await deleteUser(sampleUser4, sampleUser1Token)
+        expect(deleteUserRequest.response.status).toBe(200)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+
+        let getUserRequest = await getUser(sampleUser1, sampleUser1Token)
+        expect(getUserRequest.response.status).toBe(403)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+
+        getUserRequest = await getUser(sampleUser2, sampleUser1Token)
+        expect(getUserRequest.response.status).toBe(403)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+
+        getUserRequest = await getUser(sampleUser3, sampleUser1Token)
+        expect(getUserRequest.response.status).toBe(403)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+
+        getUserRequest = await getUser(sampleUser4, sampleUser1Token)
+        expect(getUserRequest.response.status).toBe(403)
+        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
     })
 })
