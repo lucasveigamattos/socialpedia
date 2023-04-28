@@ -1,5 +1,5 @@
 import {Request, Response} from "express"
-import {PrismaClient} from "@prisma/client"
+import {Prisma, PrismaClient} from "@prisma/client"
 const prisma = new PrismaClient()
 
 async function getUser(request: Request, response: Response) {
@@ -20,11 +20,11 @@ async function getUser(request: Request, response: Response) {
             }
         })
 
-        if (!user) return response.status(403).json({error: "User doesn't exists."})
+        if (!user) return response.status(404).json({error: "User doesn't exists."})
 
-        response.status(200).json(user)
+        return response.status(200).json(user)
     } catch (error) {
-        console.error({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
     }
 }
 
@@ -39,9 +39,9 @@ async function getUserFriends(request: Request, response: Response) {
             }
         })
 
-        response.status(200).json(userFriends)
+        return response.status(200).json(userFriends)
     } catch (error) {
-        console.error({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
     }
 }
 
@@ -53,9 +53,9 @@ async function deleteUser(request: Request, response: Response) {
             }
         })
 
-        response.status(200).json({deletedUser, message: "User deleted with success."})
+        return response.status(200).json({deletedUser, message: "User deleted with success."})
     } catch (error) {
-        console.error({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
     }
 }
 
@@ -91,9 +91,9 @@ async function addFriend(request: Request, response: Response) {
             }
         })
 
-        response.status(200).json(userFriends)
+        return response.status(200).json(userFriends)
     } catch (error) {
-        console.error({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
     }
 }
 
@@ -127,9 +127,9 @@ async function removeFriend(request: Request, response: Response) {
             }
         })
 
-        response.status(200).json({friends})
+        return response.status(200).json({friends})
     } catch (error) {
-        console.error({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
     }
 }
 

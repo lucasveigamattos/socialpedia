@@ -22,6 +22,6 @@ export default async function verifyToken(request: Request, response: Response, 
         
         next()
     } catch (error) {
-        console.error({error})
+        return response.status(500).json({error})
     }
 }
