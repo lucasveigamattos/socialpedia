@@ -3,7 +3,7 @@ dotenv.config()
 
 const API_URL = process.env.API_URL || "http://localhost:3000"
 
-describe("Testing API", () => {
+describe("Testing Users", () => {
     async function createUser(userData) {
         const response = await fetch(`${API_URL}/auth/register`, {
             method: "POST",
@@ -214,14 +214,14 @@ describe("Testing API", () => {
         const sampleUser3Account = await createUser(sampleUser3)
         const sampleUser4Account = await createUser(sampleUser4)
 
-        sampleUser2.id = sampleUser2Account.data.id
-        sampleUser2Token = (await getToken(sampleUser2)).data.token
+        sampleUser2.id = sampleUser2Account.data["id"]
+        sampleUser2Token = (await getToken(sampleUser2)).data["token"]
 
         sampleUser3.id = sampleUser3Account.data.id
-        sampleUser3Token = (await getToken(sampleUser3)).data.token
+        sampleUser3Token = (await getToken(sampleUser3)).data["token"]
 
         sampleUser4.id = sampleUser4Account.data.id
-        sampleUser4Token = (await getToken(sampleUser4)).data.token
+        sampleUser4Token = (await getToken(sampleUser4)).data["token"]
 
         let response = await fetch(`${API_URL}/users/${sampleUser1.id}/${sampleUser2.id}/addFriend`, {
             method: "PATCH",
@@ -277,30 +277,34 @@ describe("Testing API", () => {
     it("Delete a user", async () => {
         let deleteUserRequest = await deleteUser(sampleUser1, sampleUser1Token)
         expect(deleteUserRequest.response.status).toBe(200)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+        expect(deleteUserRequest.data["message"]).toBe("User deleted with success.")
 
         deleteUserRequest = await deleteUser(sampleUser2, sampleUser2Token)
         expect(deleteUserRequest.response.status).toBe(200)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+        expect(deleteUserRequest.data["message"]).toBe("User deleted with success.")
 
         deleteUserRequest = await deleteUser(sampleUser3, sampleUser3Token)
         expect(deleteUserRequest.response.status).toBe(200)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+        expect(deleteUserRequest.data["message"]).toBe("User deleted with success.")
 
         deleteUserRequest = await deleteUser(sampleUser4, sampleUser4Token)
         expect(deleteUserRequest.response.status).toBe(200)
-        expect(deleteUserRequest.data.message).toBe("User deleted with success.")
+        expect(deleteUserRequest.data["message"]).toBe("User deleted with success.")
 
         let getUserRequest = await getUser(sampleUser1, sampleUser1Token)
-        expect(getUserRequest.response.status).toBe(403)
+        expect(getUserRequest.response.status).toBe(404)
+        expect(getUserRequest.data["error"]).toBe("User doesn't exists.")
 
         getUserRequest = await getUser(sampleUser2, sampleUser2Token)
-        expect(getUserRequest.response.status).toBe(403)
+        expect(getUserRequest.response.status).toBe(404)
+        expect(getUserRequest.data["error"]).toBe("User doesn't exists.")
 
         getUserRequest = await getUser(sampleUser3, sampleUser3Token)
-        expect(getUserRequest.response.status).toBe(403)
+        expect(getUserRequest.response.status).toBe(404)
+        expect(getUserRequest.data["error"]).toBe("User doesn't exists.")
 
         getUserRequest = await getUser(sampleUser4, sampleUser4Token)
-        expect(getUserRequest.response.status).toBe(403)
+        expect(getUserRequest.response.status).toBe(404)
+        expect(getUserRequest.data["error"]).toBe("User doesn't exists.")
     })
 })

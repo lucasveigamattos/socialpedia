@@ -1,7 +1,7 @@
 import {Request, Response} from "express"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import {PrismaClient} from "@prisma/client"
+import {Prisma, PrismaClient} from "@prisma/client"
 
 const prisma = new PrismaClient()
 
@@ -37,7 +37,7 @@ async function register(request: Request, response: Response) {
 
         return response.status(201).json(user)
     } catch (error) {
-        console.error({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
     }
 }
 
@@ -61,7 +61,7 @@ async function login(request: Request, response: Response) {
 
         return response.status(200).json({user, token})
     } catch (error) {
-        console.error({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
     }
 }
 
