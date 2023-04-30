@@ -24,3 +24,17 @@ model User {
   impressions   Int
   createdAt     DateTime @default(now())
 }
+
+model Post {
+  id              String @id @default(uuid())
+  userId          String
+  firstName       String
+  lastName        String
+  location        String
+  description     String
+  userPicturePath String
+  picturePath     String
+  likes           Int
+  comments        Json[]
+  createdAt       DateTime @default(now())
+}
