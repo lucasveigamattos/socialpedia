@@ -11,17 +11,19 @@ import {fileURLToPath} from "url"
 
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
+import postRoutes from "./routes/posts.js"
 
 import verifyToken from "./middleware/auth.js"
 
 import {register} from "./controllers/auth.js"
+import {createPost} from "./controllers/posts.js"
 
 // Configurations
 const __fileName = fileURLToPath(import.meta.url)
 const __dirName = path.dirname(__fileName)
 
 dotenv.config()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3333
 
 const app = express()
 app.use(express.json())
@@ -47,10 +49,12 @@ const upload = multer({storage})
 
 // Routes with files
 app.post("/auth/register", upload.single("picture"), register)
+app.post("/posts", verifyToken, upload.single("picture"), createPost)
 
 // Routes
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
+app.use("/posts", postRoutes)
 
 // Server Startup
 app.listen(port, () => {
