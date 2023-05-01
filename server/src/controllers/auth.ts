@@ -37,7 +37,7 @@ async function register(request: Request, response: Response) {
 
         return response.status(201).json(user)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -61,7 +61,7 @@ async function login(request: Request, response: Response) {
 
         return response.status(200).json({user, token})
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
