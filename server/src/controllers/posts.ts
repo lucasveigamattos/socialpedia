@@ -26,9 +26,9 @@ async function createPost(request: Request, response: Response) {
             }
         })
 
-        return response.status(201).json({post})
+        return response.status(201).json(post)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error: error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -42,7 +42,7 @@ async function deletePost(request: Request, response: Response) {
 
         return response.status(200).json({deletedPost, message: "Post deleted with success."})
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error: error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -55,9 +55,9 @@ async function getFeedPosts(request: Request, response: Response) {
             take: 50
         })
 
-        return response.status(200).json({posts})
+        return response.status(200).json(posts)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error: error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -69,9 +69,9 @@ async function getUserPosts(reqeust: Request, response: Response) {
             }
         })
 
-        return response.status(200).json({posts})
+        return response.status(200).json(posts)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error: error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -94,9 +94,9 @@ async function likePost(request: Request, response: Response) {
             }
         })
 
-        return response.status(200).json({updatedPost})
+        return response.status(200).json(updatedPost)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error: error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -119,9 +119,9 @@ async function unlikePost(request: Request, response: Response) {
             }
         })
 
-        return response.status(200).json({updatedPost})
+        return response.status(200).json(updatedPost)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error: error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 

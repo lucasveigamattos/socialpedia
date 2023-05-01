@@ -24,7 +24,7 @@ async function getUser(request: Request, response: Response) {
 
         return response.status(200).json(user)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -41,7 +41,7 @@ async function getUserFriends(request: Request, response: Response) {
 
         return response.status(200).json(userFriends)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -55,7 +55,7 @@ async function deleteUser(request: Request, response: Response) {
 
         return response.status(200).json({deletedUser, message: "User deleted with success."})
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -93,7 +93,7 @@ async function addFriend(request: Request, response: Response) {
 
         return response.status(200).json(userFriends)
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
@@ -129,7 +129,7 @@ async function removeFriend(request: Request, response: Response) {
 
         return response.status(200).json({friends})
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json({error})
+        if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
 }
 
