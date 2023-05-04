@@ -4,7 +4,7 @@ import RegisterForm from "../../components/RegisterForm"
 
 import { CustomThemeInterface } from "../../theme"
 
-function Login() {
+function Register() {
     const theme: CustomThemeInterface = useTheme()
     const isNonMobileScreen = useMediaQuery("(min-width: 1000px)")
 
@@ -17,8 +17,10 @@ function Login() {
             <div className="p-[3.2rem] rounded-[2.4rem] my-[3.2rem] mx-auto" style={{width: isNonMobileScreen ? "50%" : "93%", backgroundColor: theme.pallete.background.alternative}}>
                 <Typography fontWeight="500" variant="h5" sx={{mb: "2.4rem"}}>Welcome to Socialpedia, the social media for you!</Typography>
             </div>
+
+            <RegisterForm/>
         </div>
     )
 }
 
-export default Login
+export default Register
