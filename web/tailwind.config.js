@@ -13,7 +13,7 @@ export default {
     plugin(function({addBase}) {
       addBase({
         html: {fontSize: "62.5%"},
-        body: {fontSize: "1.6rem"}
+        body: {fontSize: "1.2rem"}
       })
     })
   ],
