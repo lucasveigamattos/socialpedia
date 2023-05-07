@@ -17,15 +17,17 @@ import "./styles/reset.css"
 function App() {
   const mode = useSelector((state: any) => state.mode)
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
+  const isAuth = Boolean(useSelector((state: any) => state.token))
 
   return (
-    <div>
+    <div className="h-full">
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Routes>
-            <Route path="/" element={<Register/>}/>
-            <Route path="/home" element={<Home/>}/>
-            <Route path="/profile/:id" element={<Profile/>}/>
+            <Route path="/" element={<Login/>}/>
+            <Route path="/signup" element={<Register/>}/>
+            <Route path="/home" element={isAuth ? <Home/> : <Navigate to="/"/>}/>
+            <Route path="/profile/:id" element={isAuth ? <Profile/> : <Navigate to="/"/>}/>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
