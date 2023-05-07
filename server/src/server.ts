@@ -23,13 +23,14 @@ const __fileName = fileURLToPath(import.meta.url)
 const __dirName = path.dirname(__fileName)
 
 dotenv.config()
-const port = process.env.PORT || 3333
+const port = process.env.PORT || 3000
 
 const app = express()
 app.use(express.json())
 app.use(helmet())
 app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}))
 app.use(morgan("common"))
+app.use(bodyParser.json())
 app.use(bodyParser.json({limit: "30mb"}))
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
