@@ -16,7 +16,8 @@ async function getUser(request: Request, response: Response) {
                 location: true,
                 occupation: true,
                 viewedProfile: true,
-                impressions: true
+                impressions: true,
+                friends: true
             }
         })
 
