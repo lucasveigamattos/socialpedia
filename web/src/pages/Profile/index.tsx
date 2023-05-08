@@ -1,3 +1,5 @@
+import UserImage from "../../components/UserImage";
+
 export default function Profile() {
     return (
         <div>
