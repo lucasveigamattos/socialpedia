@@ -2,7 +2,7 @@ import {Typography, useTheme, useMediaQuery} from "@mui/material"
 
 import LoginForm from "../../components/LoginForm"
 
-import { CustomThemeInterface } from "../../theme"
+import {CustomThemeInterface} from "../../theme"
 
 function Login() {
     const theme: CustomThemeInterface = useTheme()

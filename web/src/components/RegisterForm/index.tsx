@@ -53,7 +53,7 @@ function RegisterForm() {
 
         const data = await response.json()
 
-        if (response.status == 200 && data) navigate("/")
+        if (response.status == 201 && data) navigate("/")
     }
 
     return (
