@@ -22,7 +22,7 @@ function Nav() {
     const alternativeBackground = theme.pallete.background.alternative
 
     function fullName() {
-        return "lucasmatr1"
+        return `${user.firstName} ${user.lastName}`
     }
 
     return (
