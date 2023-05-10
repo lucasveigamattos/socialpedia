@@ -46,7 +46,7 @@ function UserWidget(Props: UserWidgetProps) {
     }, [])
 
     return (
-        <div className="rounded-[1.2rem] pt-[2.4rem] pr-[2.4rem] pb-[1.2rem] pl-[2.4rem]" style={{backgroundColor: theme.pallete.background.alternative}}>
+        <div className="rounded-[1.2rem] pt-[2.4rem] px-[2.4rem] pb-[1.2rem]" style={{backgroundColor: theme.pallete.background.alternative}}>
             <div className="flex justify-between items-center gap-[0.8rem] pb-[1.76rem]" onClick={() => {navigate(`/profile/${Props.userId}`)}}>
                 <div className="flex justify-between items-center gap-[1.6rem]">
                     <UserImage image={Props.picturePath}/>

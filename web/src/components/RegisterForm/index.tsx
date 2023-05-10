@@ -91,7 +91,7 @@ function RegisterForm() {
                                 <TextField label="Occupation" onBlur={handleBlur} onChange={handleChange} value={values.occupation} name="occupation" error={Boolean(touched.occupation) && Boolean(errors.occupation)} helperText={touched.occupation && errors.occupation} sx={{gridColumn: "span 4"}}/>
 
                                 <div className="col-span-4 rounded-[0.5rem] py-[1.6rem] px-[1.6rem]" style={{border: `0.1rem solid ${theme.pallete.neutral.medium}`}}>
-                                    <div {...getRootProps()} className="py-[1.6rem] px-[1.6rem] cursor-pointer" style={{border: `0.2rem dashed ${theme.pallete.primary.main}`}}>
+                                    <div {...getRootProps()} className="p-[1.6rem] cursor-pointer" style={{border: `0.2rem dashed ${theme.pallete.primary.main}`}}>
                                         <input {...getInputProps()}/>
                                         {!values.picture ? (
                                             <p>Add picture here</p>
