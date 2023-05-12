@@ -51,12 +51,14 @@ async function getUserPosts(userData, userToken) {
     }
 }
 
-async function likePost(postData, userToken) {
+async function likePost(postData, userId, userToken) {
     const response = await fetch(`${API_URL}/posts/${postData.id}/like`, {
         method: "PATCH",
         headers: {
-            Authorization: userToken
-        }
+            Authorization: userToken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({userId})
     })
 
     const data = await response.json()
@@ -67,12 +69,14 @@ async function likePost(postData, userToken) {
     }
 }
 
-async function unlikePost(postData, userToken) {
+async function unlikePost(postData, userId, userToken) {
     const response = await fetch(`${API_URL}/posts/${postData.id}/unlike`, {
         method: "PATCH",
         headers: {
-            Authorization: userToken
-        }
+            Authorization: userToken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({userId})
     })
 
     const data = await response.json()

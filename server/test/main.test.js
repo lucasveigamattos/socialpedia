@@ -327,7 +327,10 @@ describe("Testing Posts", () => {
     })
 
     it("Likes a post", async () => {
-        const {response, data} = await likePost(postSample1, sampleUser1Token)
+        await likePost(postSample1, sampleUser1.id, sampleUser1Token)
+        await likePost(postSample1, sampleUser2.id, sampleUser2Token)
+        await likePost(postSample1, sampleUser3.id, sampleUser3Token)
+        let {response, data} = await likePost(postSample1, sampleUser4.id, sampleUser4Token)
 
         expect(response.status).toBe(200)
 
@@ -349,11 +352,11 @@ describe("Testing Posts", () => {
         expect(data["updatedPost"]).not.toHaveProperty("viewedProfile")
         expect(data["updatedPost"]).not.toHaveProperty("impressions")
 
-        expect(data["updatedPost"]["likes"]).toBe(1)
+        expect(data["updatedPost"]["likes"].length).toBe(4)
     })
 
     it("Unlikes a post", async () => {
-        const {response, data} = await unlikePost(postSample1, sampleUser1Token)
+        const {response, data} = await unlikePost(postSample1, sampleUser3.id, sampleUser3Token)
 
         expect(response.status).toBe(200)
 
@@ -375,7 +378,9 @@ describe("Testing Posts", () => {
         expect(data["updatedPost"]).not.toHaveProperty("viewedProfile")
         expect(data["updatedPost"]).not.toHaveProperty("impressions")
 
-        expect(data["updatedPost"]["likes"]).toBe(0)
+        expect(data["updatedPost"]["likes"]).toEqual([sampleUser1.id, sampleUser2.id, sampleUser4.id])
+
+        expect(data["updatedPost"]["likes"].length).toBe(3)
     })
 
     it("Delete a post", async () => {
