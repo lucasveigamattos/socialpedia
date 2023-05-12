@@ -34,7 +34,7 @@ model Post {
   description     String
   userPicturePath String
   picturePath     String
-  likes           Int
+  likes           String[]
   comments        Json[]
   createdAt       DateTime @default(now())
 }

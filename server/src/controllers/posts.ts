@@ -22,11 +22,11 @@ async function createPost(request: Request, response: Response) {
                 description,
                 userPicturePath: user.picturePath,
                 picturePath: picturePath,
-                likes: 0
+                likes: []
             }
         })
 
-        return response.status(201).json(post)
+        return response.status(201).json({post})
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
@@ -55,7 +55,7 @@ async function getFeedPosts(request: Request, response: Response) {
             take: 50
         })
 
-        return response.status(200).json(posts)
+        return response.status(200).json({posts})
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
@@ -69,7 +69,7 @@ async function getUserPosts(reqeust: Request, response: Response) {
             }
         })
 
-        return response.status(200).json(posts)
+        return response.status(200).json({posts})
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
@@ -78,6 +78,7 @@ async function getUserPosts(reqeust: Request, response: Response) {
 async function likePost(request: Request, response: Response) {
     try {
         const {id} = request.params
+        const {userId} = request.body
 
         const post = await prisma.post.findUniqueOrThrow({
             where: {
@@ -90,11 +91,13 @@ async function likePost(request: Request, response: Response) {
                 id
             },
             data: {
-                likes: post.likes + 1
+                likes: {
+                    push: userId
+                }
             }
         })
 
-        return response.status(200).json(updatedPost)
+        return response.status(200).json({updatedPost})
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
@@ -103,6 +106,7 @@ async function likePost(request: Request, response: Response) {
 async function unlikePost(request: Request, response: Response) {
     try {
         const {id} = request.params
+        const bodyUserId = request.body.userId
 
         const post = await prisma.post.findFirstOrThrow({
             where: {
@@ -110,16 +114,24 @@ async function unlikePost(request: Request, response: Response) {
             }
         })
 
+        const likes = []
+
+        for (let userId of post.likes) {
+            if (userId != bodyUserId) {
+                likes.push(userId)
+            }
+        }
+
         const updatedPost = await prisma.post.update({
             where: {
                 id
             },
             data: {
-                likes: post.likes - 1
+                likes: likes
             }
         })
 
-        return response.status(200).json(updatedPost)
+        return response.status(200).json({updatedPost})
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) return response.status(500).json(error)
     }
