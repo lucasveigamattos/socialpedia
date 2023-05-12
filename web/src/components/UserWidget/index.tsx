@@ -13,7 +13,7 @@ interface UserWidgetProps {
     picturePath: string
 }
 
-function UserWidget(Props: UserWidgetProps) {
+function UserWidget(props: UserWidgetProps) {
     const [user, setUser] = useState({
         id: "",
         firstName: "",
@@ -31,7 +31,7 @@ function UserWidget(Props: UserWidgetProps) {
     const token = useSelector((state: any) => state.token)
 
     async function getUser() {
-        const response = await fetch(`http://localhost:3000/users/${Props.userId}`, {
+        const response = await fetch(`http://localhost:3000/users/${props.userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -47,9 +47,9 @@ function UserWidget(Props: UserWidgetProps) {
 
     return (
         <div className="rounded-[1.2rem] pt-[2.4rem] px-[2.4rem] pb-[1.2rem]" style={{backgroundColor: theme.pallete.background.alternative}}>
-            <div className="flex justify-between items-center gap-[0.8rem] pb-[1.76rem]" onClick={() => {navigate(`/profile/${Props.userId}`)}}>
+            <div className="flex justify-between items-center gap-[0.8rem] pb-[1.76rem]" onClick={() => {navigate(`/profile/${props.userId}`)}}>
                 <div className="flex justify-between items-center gap-[1.6rem]">
-                    <UserImage image={Props.picturePath}/>
+                    <UserImage image={props.picturePath}/>
                     <div>
                         <Typography variant="h4" color={theme.pallete.neutral.dark} fontWeight="500" sx={{cursor: "pointer", "&:hover": {color: theme.pallete.primary.light}}}>{user.firstName} {user.lastName}</Typography>
                         <Typography color={theme.pallete.neutral.medium}>{user.friends.length} friends</Typography>

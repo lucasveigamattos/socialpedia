@@ -80,11 +80,7 @@ async function likePost(request: Request, response: Response) {
         const {id} = request.params
         const {userId} = request.body
 
-        const post = await prisma.post.findUniqueOrThrow({
-            where: {
-                id
-            }
-        })
+        console.log(userId)
 
         const updatedPost = await prisma.post.update({
             where: {
