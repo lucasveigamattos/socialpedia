@@ -4,6 +4,7 @@ import {useSelector} from "react-redux"
 import Nav from "../../components/Nav"
 import UserWidget from "../../components/UserWidget"
 import CreatePost from "../../components/CreatePost"
+import PostsWidget from "../../components/PostsWidget"
 
 import {CustomThemeInterface} from "../../theme"
 
@@ -22,6 +23,7 @@ export default function Home() {
                 </div>
                 <div style={{flexBasis: isNonMobileScreen ? "42%" : undefined, marginTop: isNonMobileScreen ? undefined : "3.2rem"}}>
                     <CreatePost picturePath={picturePath}/>
+                    <PostsWidget userId={id} isProfile={false}/>
                 </div>
                 {isNonMobileScreen && (
                     <div style={{flexBasis: "26%"}}></div>
