@@ -5,6 +5,7 @@ import Nav from "../../components/Nav"
 import UserWidget from "../../components/UserWidget"
 import CreatePost from "../../components/CreatePost"
 import PostsWidget from "../../components/PostsWidget"
+import AdWidget from "../../components/AdWidget"
 
 import {CustomThemeInterface} from "../../theme"
 
@@ -26,7 +27,9 @@ export default function Home() {
                     <PostsWidget userId={id} isProfile={false}/>
                 </div>
                 {isNonMobileScreen && (
-                    <div style={{flexBasis: "26%"}}></div>
+                    <div style={{flexBasis: "26%"}}>
+                        <AdWidget/>
+                    </div>
                 )}
             </div>
         </div>
