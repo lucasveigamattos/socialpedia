@@ -94,7 +94,7 @@ function PostWidget(props: PostsWidgetProps) {
             </div>
             {isComments && (
                 <div className="mt-[0.8rem]">
-                    {JSON.parse(props.comments).map((comment: string, index: number) => (
+                    {props.comments.map((comment: string, index: number) => (
                         <div key={`${props.firstName} ${props.lastName}-${index}`}>
                             <Divider/>
                             <Typography sx={{color: main, m: "0.8rem 0", pl: "1.6rem"}}>
