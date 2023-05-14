@@ -26,7 +26,6 @@ function FriendList(props: FriendListProps) {
         })
 
         const data = await response.json()
-
         dispatch(setFriends({friends: data.friends}))
     }
 
