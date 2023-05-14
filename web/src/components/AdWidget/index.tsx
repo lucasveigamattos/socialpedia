@@ -19,7 +19,6 @@ function AdWidget() {
                 <Typography color={medium}>spacex.com</Typography>
             </div>
             <Typography color={medium} m="0.8rem 0">The spacecraft of the future!</Typography>
-            <div className="my-[3.2rem]"></div>
         </div>
     )
 }

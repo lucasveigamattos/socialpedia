@@ -6,6 +6,7 @@ import UserWidget from "../../components/UserWidget"
 import CreatePost from "../../components/CreatePost"
 import PostsWidget from "../../components/PostsWidget"
 import AdWidget from "../../components/AdWidget"
+import FriendList from "../../components/FriendList"
 
 import {CustomThemeInterface} from "../../theme"
 
@@ -29,6 +30,8 @@ export default function Home() {
                 {isNonMobileScreen && (
                     <div style={{flexBasis: "26%"}}>
                         <AdWidget/>
+                        <div className="my-[3.2rem]"></div>
+                        <FriendList userId={id}/>
                     </div>
                 )}
             </div>
